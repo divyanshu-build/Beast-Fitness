@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <div class="bg-dark text-white p-3 vh-100" style="width:260px;">
+
+        <h3 class="text-center mb-4">
+            🏋️ Beast Fitness
+        </h3>
+
+        <hr>
+
+        <a href="#" class="text-white text-decoration-none d-block py-2">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a href="#" class="text-white text-decoration-none d-block py-2">
+            <i class="bi bi-people-fill"></i> Members
+        </a>
+
+        <a href="#" class="text-white text-decoration-none d-block py-2">
+            <i class="bi bi-cash-stack"></i> Payments
+        </a>
+
+        <a href="#" class="text-white text-decoration-none d-block py-2">
+            <i class="bi bi-qr-code-scan"></i> Attendance
+        </a>
+
+        <a href="#" class="text-white text-decoration-none d-block py-2">
+            <i class="bi bi-gear-fill"></i> Settings
+        </a>
+
+        <a href="#" class="text-danger text-decoration-none d-block py-2 mt-5">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="container-fluid p-4">
+
+        <h2>Dashboard</h2>
+
+        <div class="row mt-4">
+
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <h6>Total Members</h6>
+
+                        <h2>0</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <h6>Today's Collection</h6>
+
+                        <h2>₹0</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <h6>Pending Fees</h6>
+
+                        <h2>0</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <div class="card-body">
+
+                        <h6>Today's Attendance</h6>
+
+                        <h2>0</h2>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

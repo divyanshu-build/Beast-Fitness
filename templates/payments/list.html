@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">💰 Payments</h2>
+            <small class="text-muted">Manage member payments</small>
+        </div>
+
+        <button class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#paymentModal">
+
+            <i class="bi bi-cash-stack"></i>
+            Receive Payment
+
+        </button>
+
+    </div>
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Member</th>
+                        <th>Amount</th>
+                        <th>Mode</th>
+                        <th>Payment Date</th>
+                        <th>Next Due</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for payment in payments %}
+
+                <tr>
+
+                    <td>{{ payment.member.full_name }}</td>
+
+                    <td>₹ {{ payment.amount }}</td>
+
+                    <td>
+
+                        {% if payment.payment_mode == "Cash" %}
+                            <span class="badge bg-success">Cash</span>
+                        {% else %}
+                            <span class="badge bg-primary">UPI</span>
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ payment.payment_date }}</td>
+
+                    <td>{{ payment.next_due_date }}</td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+
+                        No Payments Found
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade"
+     id="paymentModal"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        Receive Payment
+
+                    </h5>
+
+                    <button class="btn-close"
+                            data-bs-dismiss="modal"></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    {{ form.as_p }}
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <button class="btn btn-success"
+                            type="submit">
+
+                        Save Payment
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

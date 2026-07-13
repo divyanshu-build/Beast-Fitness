@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row justify-content-center mt-5">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+
+                        <h2>🏋️ Beast Fitness</h2>
+
+                        <p class="text-muted">
+                            Attendance Portal
+                        </p>
+
+                    </div>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                Member ID
+                            </label>
+
+                            {{ form.member_id }}
+
+                        </div>
+
+                        <div class="d-grid">
+
+                            <button
+                                class="btn btn-success btn-lg"
+                                type="submit">
+
+                                Mark Attendance
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% if message %}
+
+<div class="alert {% if success %}alert-success{% else %}alert-danger{% endif %} mt-4">
+
+    {{ message }}
+
+</div>
+
+{% endif %}
+
+{% endblock %}
