@@ -2,252 +2,405 @@
 
 {% block content %}
 
-<div class="d-flex">
+<div class="container-fluid">
 
-    <!-- Sidebar -->
-    <div class="bg-dark text-white p-3 vh-100" style="width:260px;">
+    <h2 class="fw-bold mb-4">
+        Dashboard
+    </h2>
 
-        <h3 class="text-center mb-4">
-            🏋️ Beast Fitness
-        </h3>
+    <!-- Dashboard Cards -->
 
-        <hr>
+    <div class="row g-4">
 
-        <a href="/dashboard/" class="text-white text-decoration-none d-block py-2">
-            <i class="bi bi-speedometer2"></i> Dashboard
-        </a>
+        <!-- Total Members -->
 
-        <a href="/members/" class="text-white text-decoration-none d-block py-2">
-            <i class="bi bi-people-fill"></i> Members
-        </a>
+        <div class="col-lg-4 col-md-6">
 
-        <a href="/payments/" class="text-white text-decoration-none d-block py-2">
-            <i class="bi bi-cash-stack"></i> Payments
-        </a>
+            <div class="card shadow border-0">
 
-        <a href="/attendance/" class="text-white text-decoration-none d-block py-2">
-            <i class="bi bi-qr-code-scan"></i> Attendance
-        </a>
+                <div class="card-body text-center">
 
-        <a href="#" class="text-white text-decoration-none d-block py-2">
-            <i class="bi bi-gear-fill"></i> Settings
-        </a>
+                    <i class="bi bi-people-fill display-4 text-primary"></i>
 
-        <a href="/admin/logout/" class="text-danger text-decoration-none d-block py-2 mt-5">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
+                    <h6 class="mt-3">Total Members</h6>
 
-    </div>
+                    <h2>{{ total_members }}</h2>
 
-    <!-- Main Content -->
-
-    <div class="container-fluid p-4">
-
-        <h2 class="fw-bold mb-4">Dashboard</h2>
-
-        <!-- Top Cards -->
-
-        <div class="row g-4">
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card shadow border-0">
-                    <div class="card-body text-center">
-
-                        <i class="bi bi-people-fill display-4 text-primary"></i>
-
-                        <h6 class="mt-3">Total Members</h6>
-
-                        <h2>{{ total_members }}</h2>
-
-                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card shadow border-0">
-                    <div class="card-body text-center">
-
-                        <i class="bi bi-cash-stack display-4 text-success"></i>
-
-                        <h6 class="mt-3">Total Collection</h6>
-
-                        <h2>₹{{ total_collection }}</h2>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card shadow border-0">
-                    <div class="card-body text-center">
-
-                        <i class="bi bi-person-check-fill display-4 text-warning"></i>
-
-                        <h6 class="mt-3">Members Inside</h6>
-
-                        <h2>{{ inside_gym }}</h2>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card shadow border-0">
-                    <div class="card-body text-center">
-
-                        <i class="bi bi-calendar-check-fill display-4 text-danger"></i>
-
-                        <h6 class="mt-3">Today's Attendance</h6>
-
-                        <h2>{{ today_attendance }}</h2>
-
-                    </div>
-                </div>
             </div>
 
         </div>
 
-        <!-- Recent Members -->
+        <!-- Total Collection -->
 
-        <div class="row mt-5">
+        <div class="col-lg-4 col-md-6">
 
-            <div class="col-lg-6">
+            <div class="card shadow border-0">
 
-                <div class="card shadow">
+                <div class="card-body text-center">
 
-                    <div class="card-header bg-primary text-white">
+                    <i class="bi bi-cash-stack display-4 text-success"></i>
 
-                        <i class="bi bi-people-fill"></i>
+                    <h6 class="mt-3">Total Collection</h6>
 
-                        Recent Members
-
-                    </div>
-
-                    <div class="card-body p-0">
-
-                        <table class="table table-hover mb-0">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Plan</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                            {% for member in recent_members %}
-
-                                <tr>
-
-                                    <td>{{ member.member_id }}</td>
-
-                                    <td>{{ member.full_name }}</td>
-
-                                    <td>
-
-                                        <span class="badge bg-primary">
-
-                                            {{ member.membership }}
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                            {% empty %}
-
-                                <tr>
-
-                                    <td colspan="3" class="text-center">
-
-                                        No Members
-
-                                    </td>
-
-                                </tr>
-
-                            {% endfor %}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    <h2>₹{{ total_collection }}</h2>
 
                 </div>
 
             </div>
 
-            <!-- Recent Payments -->
+        </div>
 
-            <div class="col-lg-6">
+        <!-- Members Inside -->
 
-                <div class="card shadow">
+        <div class="col-lg-4 col-md-6">
 
-                    <div class="card-header bg-success text-white">
+            <div class="card shadow border-0">
 
-                        <i class="bi bi-cash-stack"></i>
+                <div class="card-body text-center">
 
-                        Recent Payments
+                    <i class="bi bi-person-check-fill display-4 text-warning"></i>
 
-                    </div>
+                    <h6 class="mt-3">Members Inside</h6>
 
-                    <div class="card-body p-0">
+                    <h2>{{ inside_gym }}</h2>
 
-                        <table class="table table-hover mb-0">
+                </div>
 
-                            <thead>
+            </div>
 
-                                <tr>
+        </div>
 
-                                    <th>Name</th>
-                                    <th>Amount</th>
-                                    <th>Date</th>
+        <!-- Today's Attendance -->
 
-                                </tr>
+        <div class="col-lg-4 col-md-6">
 
-                            </thead>
+            <div class="card shadow border-0">
 
-                            <tbody>
+                <div class="card-body text-center">
 
-                            {% for payment in recent_payments %}
+                    <i class="bi bi-calendar-check-fill display-4 text-danger"></i>
 
-                                <tr>
+                    <h6 class="mt-3">Today's Attendance</h6>
 
-                                    <td>{{ payment.member.full_name }}</td>
+                    <h2>{{ today_attendance }}</h2>
 
-                                    <td>₹{{ payment.amount }}</td>
+                </div>
 
-                                    <td>{{ payment.payment_date }}</td>
+            </div>
 
-                                </tr>
+        </div>
 
-                            {% empty %}
+        <!-- Due Members -->
 
-                                <tr>
+        <div class="col-lg-4 col-md-6">
 
-                                    <td colspan="3" class="text-center">
+            <div class="card shadow border-0">
 
-                                        No Payments
+                <div class="card-body text-center">
 
-                                    </td>
+                    <i class="bi bi-exclamation-circle-fill display-4 text-danger"></i>
 
-                                </tr>
+                    <h6 class="mt-3">Due Members</h6>
 
-                            {% endfor %}
+                    <h2>{{ due_members }}</h2>
 
-                            </tbody>
+                </div>
 
-                        </table>
+            </div>
 
-                    </div>
+        </div>
+
+        <!-- Today's Collection -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-wallet2 display-4 text-success"></i>
+
+                    <h6 class="mt-3">Today's Collection</h6>
+
+                    <h2>₹{{ today_collection }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Tables -->
+
+    <div class="row mt-5">
+
+        <!-- Recent Members -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    Recent Members
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Name</th>
+
+                                <th>Plan</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for member in recent_members %}
+
+                            <tr>
+
+                                <td>{{ member.member_id }}</td>
+
+                                <td>{{ member.full_name }}</td>
+
+                                <td>
+
+                                    <span class="badge bg-primary">
+
+                                        {{ member.membership }}
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3" class="text-center">
+
+                                    No Members
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Payments -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+
+                    <i class="bi bi-cash-stack"></i>
+
+                    Recent Payments
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Name</th>
+
+                                <th>Amount</th>
+
+                                <th>Date</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for payment in recent_payments %}
+
+                            <tr>
+
+                                <td>{{ payment.member.full_name }}</td>
+
+                                <td>₹{{ payment.amount }}</td>
+
+                                <td>{{ payment.payment_date }}</td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3" class="text-center">
+
+                                    No Payments
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Due Members -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-12">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-danger text-white">
+
+                    🔴 Due Members
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+
+<tr>
+
+    <th>Member ID</th>
+
+    <th>Name</th>
+
+    <th>Due Date</th>
+
+    <th>Status</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+</tr>
+
+</thead>
+
+                        <tbody>
+
+                        {% for member in recent_due_members %}
+
+                            <tr>
+
+    <td>{{ member.member_id }}</td>
+
+    <td>{{ member.full_name }}</td>
+
+    <td>{{ member.next_due_date }}</td>
+    
+    <td>
+
+    {% if member.display_status == "Overdue" %}
+        <span class="badge bg-danger">🔴 Overdue</span>
+
+    {% elif member.display_status == "Due Today" %}
+        <span class="badge bg-warning text-dark">🟡 Due Today</span>
+
+    {% else %}
+        <span class="badge bg-success">🟢 Paid</span>
+
+    {% endif %}
+
+</td>
+
+<td>
+    <a href="/payments/" class="btn btn-sm btn-success">
+        💰 Receive
+    </a>
+</td>
+    <td>
+
+        {% if member.display_status == "Overdue" %}
+
+            <span class="badge bg-danger">
+                🔴 Overdue
+            </span>
+
+        {% elif member.display_status == "Due Today" %}
+
+            <span class="badge bg-warning text-dark">
+                🟡 Due Today
+            </span>
+
+        {% else %}
+
+            <span class="badge bg-success">
+                🟢 Paid
+            </span>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3" class="text-center">
+
+                                    No Due Members 🎉
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 

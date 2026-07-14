@@ -9,13 +9,19 @@ def payment_list(request):
         form = PaymentForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            payment = form.save()
+
+            member = payment.member
+            member.next_due_date = payment.next_due_date
+            member.fee_status = "Paid"
+            member.save()
+
             return redirect("payments")
 
     else:
         form = PaymentForm()
 
-    payments = Payment.objects.select_related("member").order_by("-id")
+    payments = Payment.objects.select_related("member").order_by("-payment_date")
 
     return render(
         request,

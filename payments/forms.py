@@ -11,7 +11,8 @@ class PaymentForm(forms.ModelForm):
             "member",
             "amount",
             "payment_mode",
-            
+            "received_by",
+            "remarks",
         ]
 
         widgets = {
@@ -24,7 +25,8 @@ class PaymentForm(forms.ModelForm):
 
             "amount": forms.NumberInput(
                 attrs={
-                    "class": "form-control"
+                    "class": "form-control",
+                    "placeholder": "Enter Amount"
                 }
             ),
 
@@ -34,10 +36,16 @@ class PaymentForm(forms.ModelForm):
                 }
             ),
 
-            "next_due_date": forms.DateInput(
+            "received_by": forms.Select(
+                attrs={
+                    "class": "form-select"
+                }
+            ),
+
+            "remarks": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "type": "date"
+                    "placeholder": "Enter Remarks (Optional)"
                 }
             ),
 

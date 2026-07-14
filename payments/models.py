@@ -1,5 +1,6 @@
 from django.db import models
 from members.models import Member
+from staff.models import Staff
 from datetime import timedelta
 from django.utils import timezone
 
@@ -9,6 +10,7 @@ class Payment(models.Model):
     PAYMENT_MODE = [
         ("Cash", "Cash"),
         ("UPI", "UPI"),
+        ("Card", "Card"),
     ]
 
     member = models.ForeignKey(
@@ -26,6 +28,13 @@ class Payment(models.Model):
         choices=PAYMENT_MODE
     )
 
+    received_by = models.ForeignKey(
+        Staff,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
     payment_date = models.DateField(
         default=timezone.now
     )
@@ -33,6 +42,11 @@ class Payment(models.Model):
     next_due_date = models.DateField(
         blank=True,
         null=True
+    )
+
+    remarks = models.CharField(
+        max_length=200,
+        blank=True
     )
 
     def save(self, *args, **kwargs):

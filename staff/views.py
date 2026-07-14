@@ -1,28 +1,15 @@
-from django.shortcuts import render, redirect
-from .models import Payment
-from .forms import PaymentForm
+from django.shortcuts import render
+from .models import Staff
 
 
-def payment_list(request):
+def staff_list(request):
 
-    if request.method == "POST":
-
-        form = PaymentForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect("payments")
-
-    else:
-        form = PaymentForm()
-
-    payments = Payment.objects.select_related("member").order_by("-id")
+    staffs = Staff.objects.all().order_by("full_name")
 
     return render(
         request,
-        "payments/list.html",
+        "staff/list.html",
         {
-            "payments": payments,
-            "form": form,
+            "staffs": staffs,
         },
     )

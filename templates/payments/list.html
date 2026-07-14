@@ -14,10 +14,8 @@
         <button class="btn btn-success"
                 data-bs-toggle="modal"
                 data-bs-target="#paymentModal">
-
             <i class="bi bi-cash-stack"></i>
             Receive Payment
-
         </button>
 
     </div>
@@ -26,69 +24,118 @@
 
         <div class="card-body">
 
-            <table class="table table-hover align-middle">
+            <div class="table-responsive">
 
-                <thead class="table-dark">
+                <table class="table table-hover align-middle">
 
-                    <tr>
-                        <th>Member</th>
-                        <th>Amount</th>
-                        <th>Mode</th>
-                        <th>Payment Date</th>
-                        <th>Next Due</th>
-                    </tr>
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Member ID</th>
+                            <th>Member</th>
+                            <th>Amount</th>
+                            <th>Mode</th>
+                            <th>Received By</th>
+                            <th>Remarks</th>
+                            <th>Payment Date</th>
+                            <th>Next Due</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-                </thead>
+                    <tbody>
 
-                <tbody>
+                    {% for payment in payments %}
 
-                {% for payment in payments %}
+                        <tr>
 
-                <tr>
+                            <td>{{ payment.member.member_id }}</td>
 
-                    <td>{{ payment.member.full_name }}</td>
+                            <td>{{ payment.member.full_name }}</td>
 
-                    <td>₹ {{ payment.amount }}</td>
+                            <td>
+                                <strong>₹{{ payment.amount }}</strong>
+                            </td>
 
-                    <td>
+                            <td>
 
-                        {% if payment.payment_mode == "Cash" %}
-                            <span class="badge bg-success">Cash</span>
-                        {% else %}
-                            <span class="badge bg-primary">UPI</span>
-                        {% endif %}
+                                {% if payment.payment_mode == "Cash" %}
+                                    <span class="badge bg-success">Cash</span>
 
-                    </td>
+                                {% elif payment.payment_mode == "UPI" %}
+                                    <span class="badge bg-primary">UPI</span>
 
-                    <td>{{ payment.payment_date }}</td>
+                                {% else %}
+                                    <span class="badge bg-dark">
+                                        {{ payment.payment_mode }}
+                                    </span>
 
-                    <td>{{ payment.next_due_date }}</td>
+                                {% endif %}
 
-                </tr>
+                            </td>
 
-                {% empty %}
+                            <td>
 
-                <tr>
+                                {% if payment.received_by %}
+                                    {{ payment.received_by.full_name }}
+                                {% else %}
+                                    -
+                                {% endif %}
 
-                    <td colspan="5" class="text-center">
+                            </td>
 
-                        No Payments Found
+                            <td>
 
-                    </td>
+                                {% if payment.remarks %}
+                                    {{ payment.remarks }}
+                                {% else %}
+                                    -
+                                {% endif %}
 
-                </tr>
+                            </td>
 
-                {% endfor %}
+                            <td>{{ payment.payment_date }}</td>
 
-                </tbody>
+                            <td>{{ payment.next_due_date }}</td>
 
-            </table>
+                            <td>
+
+                                {% if payment.member.fee_status == "Paid" %}
+                                    <span class="badge bg-success">Paid</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Due</span>
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td colspan="9" class="text-center py-4">
+
+                                No Payments Found
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
+<!-- Payment Modal -->
 
 <div class="modal fade"
      id="paymentModal"
@@ -105,34 +152,61 @@
                 <div class="modal-header">
 
                     <h5 class="modal-title">
-
                         Receive Payment
-
                     </h5>
 
-                    <button class="btn-close"
-                            data-bs-dismiss="modal"></button>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
 
                 </div>
 
                 <div class="modal-body">
 
-                    {{ form.as_p }}
+                    <div class="row">
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Member</label>
+                            {{ form.member }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Amount</label>
+                            {{ form.amount }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Payment Mode</label>
+                            {{ form.payment_mode }}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Received By</label>
+                            {{ form.received_by }}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Remarks</label>
+                            {{ form.remarks }}
+                        </div>
+
+                    </div>
 
                 </div>
 
                 <div class="modal-footer">
 
-                    <button class="btn btn-secondary"
+                    <button type="button"
+                            class="btn btn-secondary"
                             data-bs-dismiss="modal">
-
                         Cancel
-
                     </button>
 
-                    <button class="btn btn-success"
-                            type="submit">
+                    <button type="submit"
+                            class="btn btn-success">
 
+                        <i class="bi bi-check-circle"></i>
                         Save Payment
 
                     </button>
