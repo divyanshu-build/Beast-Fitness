@@ -4,8 +4,10 @@ from payments.models import Payment
 from attendance.models import Attendance
 from django.utils import timezone
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def dashboard(request):
 
     total_members = Member.objects.count()

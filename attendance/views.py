@@ -1,13 +1,14 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
 
 from .forms import AttendanceForm
 from .models import Attendance
-
 from members.models import Member
 
 
+@login_required
 def attendance(request):
 
     message = ""
@@ -22,7 +23,6 @@ def attendance(request):
             member_id = form.cleaned_data["member_id"]
 
             try:
-
                 member = Member.objects.get(member_id=member_id)
 
             except Member.DoesNotExist:

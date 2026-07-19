@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Member
 from .forms import MemberForm
 from payments.models import Payment
 from attendance.models import Attendance
 
 
+@login_required
 def member_list(request):
 
     if request.method == "POST":
@@ -29,6 +31,7 @@ def member_list(request):
     )
 
 
+@login_required
 def view_member(request, id):
 
     member = get_object_or_404(Member, id=id)
@@ -52,6 +55,7 @@ def view_member(request, id):
     )
 
 
+@login_required
 def edit_member(request, id):
 
     member = get_object_or_404(Member, id=id)
@@ -74,6 +78,9 @@ def edit_member(request, id):
             "member": member,
         },
     )
+
+
+@login_required
 def delete_member(request, id):
 
     member = get_object_or_404(Member, id=id)
